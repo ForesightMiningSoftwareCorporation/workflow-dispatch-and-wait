@@ -1,18 +1,56 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'workflow-dispatch-and-wait'
+description: 'Action to dispatch and workflow and wait for its result'
+author: 'ForesightMiningSoftwareCorporation'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
-  icon: 'heart'
-  color: 'red'
+  icon: 'loader'
+  color: 'blue'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  max_retry:
+    description: 'Number of retries for API calls'
+    default: "7"
+    required: false
+
+  interval:
+    description: 'Interval between retries (in seconds)'
+    default: '60'
+    required: false
+
+  github_token:
+    description: 'GitHub token for authentication'
     required: true
-    default: '1000'
+
+  workflow_owner:
+    description: 'Owner of the workflow to dispatch'
+    required: false
+
+  workflow_repo:
+    description: 'Repository of the workflow exists to dispatch'
+    required: true
+
+  workflow_id:
+    description: 'ID of the workflow to be triggered (Usually the file name, e.g. `release.yaml`)'
+    required: true
+
+  workflow_inputs:
+    description: 'JSON encoded inputs for the triggered workflow'
+    required: false
+    default: '{}'
+
+  dispatch_name:
+    description: 'Name for the workflow run, if not set, the latest run will be fetch'
+    required: false
+
+  artifact_name:
+    description: 'Name for the artifact that the target workflow will generate'
+    required: false
+
+  download_path:
+    description: 'Where to download the artifact to'
+    required: false
 
 # Define your outputs here.
 outputs:

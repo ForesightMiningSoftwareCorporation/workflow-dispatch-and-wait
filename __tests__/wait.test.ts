@@ -2,7 +2,7 @@
  * Unit tests for src/wait.ts
  */
 
-import { wait } from '../src/wait'
+import { utils } from '../src/utils'
 import { expect } from '@jest/globals'
 
 describe('wait.ts', () => {
@@ -10,12 +10,12 @@ describe('wait.ts', () => {
     const input = parseInt('foo', 10)
     expect(isNaN(input)).toBe(true)
 
-    await expect(wait(input)).rejects.toThrow('milliseconds not a number')
+    await expect(utils(input)).rejects.toThrow('milliseconds not a number')
   })
 
   it('waits with a valid number', async () => {
     const start = new Date()
-    await wait(500)
+    await utils(500)
     const end = new Date()
 
     const delta = Math.abs(end.getTime() - start.getTime())
